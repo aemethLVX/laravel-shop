@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\Faker\FakerImageProvider;
 use Carbon\CarbonInterval;
+use Faker\{Factory, Generator};
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -33,5 +35,11 @@ class AppServiceProvider extends ServiceProvider
                 }
             );
         }
+
+        $this->app->singleton(Generator::class, function () {
+            $faker = Factory::create();
+            $faker->addProvider(new FakerImageProvider($faker));
+            return $faker;
+        });
     }
 }

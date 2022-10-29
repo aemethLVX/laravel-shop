@@ -17,9 +17,9 @@ return new class extends Migration {
             $table->string('picture')->nullable();
             $table->unsignedInteger('price')->default(0);
             $table->foreignIdFor(Brand::class)
-                ->constrained()
+                ->nullable()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->timestamps();
         });
 

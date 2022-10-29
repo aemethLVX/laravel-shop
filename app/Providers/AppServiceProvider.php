@@ -14,10 +14,9 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        Model::preventLazyLoading(!app()->isProduction());
-        Model::preventSilentlyDiscardingAttributes(!app()->isProduction());
+        Model::shouldBeStrict(!app()->isProduction());
 
-        if (!app()->isProduction()) {
+        if (app()->isProduction()) {
             DB::listen(function ($query) {
                 if ($query->time > 1000) {
                     logger()->channel('telegram')->debug(

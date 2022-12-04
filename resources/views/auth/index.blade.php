@@ -3,12 +3,13 @@
 @section('title', 'Вход в аккаунт')
 
 @section('content')
-    <x-forms.auth_form title="Вход в аккаунт" action="{{ route('signIn') }}" method="post" name="test">
+    <x-forms.auth_form title="Вход в аккаунт" action="{{ route('sign.in') }}" method="post" name="test">
 
         <x-forms.text-input
             name="email"
             type="email"
             placeholder="E-mail"
+            value="{{ old('email') }}"
             :isError="$errors->has('email')"
             required>
         </x-forms.text-input>
@@ -51,12 +52,12 @@
         <x-slot:buttons>
             <div class="space-y-3 mt-5">
                 <div class="text-xxs md:text-xs">
-                    <a href="{{ route('forgot_password') }}" class="text-white hover:text-white/70 font-bold">
+                    <a href="{{ route('password.forgot') }}" class="text-white hover:text-white/70 font-bold">
                         Забыли пароль?
                     </a>
                 </div>
                 <div class="text-xxs md:text-xs">
-                    <a href="{{ route('sign_up') }}" class="text-white hover:text-white/70 font-bold">
+                    <a href="{{ route('sign.up') }}" class="text-white hover:text-white/70 font-bold">
                         Регистрация
                     </a>
                 </div>

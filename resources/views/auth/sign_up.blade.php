@@ -3,11 +3,12 @@
 @section('title', 'Регистрация')
 
 @section('content')
-    <x-forms.auth_form title="Регистрация" action="" method="POST">
+    <x-forms.auth_form title="Регистрация" action="{{ route('store') }}" method="POST">
         <x-forms.text-input
             name="name"
             type="text"
             placeholder="Имя"
+            value="{{ old('name') }}"
             :isError="$errors->has('name')"
             required>
         </x-forms.text-input>
@@ -22,6 +23,7 @@
             name="email"
             type="email"
             placeholder="E-mail"
+            value="{{ old('email') }}"
             :isError="$errors->has('email')"
             required>
         </x-forms.text-input>

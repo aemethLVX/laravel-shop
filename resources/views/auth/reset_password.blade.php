@@ -3,12 +3,20 @@
 @section('title', 'Восстановление пароля')
 
 @section('content')
-    <x-forms.auth_form title="Восстановление пароля" action="" method="POST">
+    <x-forms.auth_form title="Восстановление пароля" action="{{ route('password.update') }}" method="POST">
+
+        <x-forms.text-input
+            name="token"
+            type="hidden"
+            value="{{ $token }}"
+            required>
+        </x-forms.text-input>
 
         <x-forms.text-input
             name="email"
             type="email"
             placeholder="E-mail"
+            value="{{ request('email') }}"
             :isError="$errors->has('email')"
             required>
         </x-forms.text-input>

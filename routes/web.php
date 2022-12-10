@@ -27,4 +27,10 @@ Route::controller(AuthController::class)->group(function () {
         ->name('password.update');
 
     Route::delete('/logout', 'logOut')->name('logout');
+
+    Route::get('/auth/socialite/github', 'github')
+        ->name('socialite.github');
+
+    Route::get('/auth/socialite/github/callback', 'githubCallback')
+        ->name('socialite.github.callback');
 });

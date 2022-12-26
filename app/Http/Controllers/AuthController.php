@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse
 
 class AuthController extends Controller
 {
-    public function index(): Factory|View|Application
+    public function index(): Factory|View|Application|RedirectResponse
     {
         return view('auth.index');
     }
@@ -35,9 +35,12 @@ class AuthController extends Controller
             $request->only('email')
         );
 
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with(['message' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
+        if ($status == Password::RESET_LINK_SENT) {
+            flash()->info(__($status));
+            return back();
+        }
+
+        return back()->withErrors(['email' => __($status)]);
     }
 
     public function resetPassword(string $token): Factory|View|Application
@@ -45,7 +48,7 @@ class AuthController extends Controller
         return view('auth.reset_password', ['token' => $token]);
     }
 
-    public function updatePassport(ResetPasswordRequest $request): RedirectResponse
+    public function updatePassword(ResetPasswordRequest $request): RedirectResponse
     {
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
@@ -60,9 +63,12 @@ class AuthController extends Controller
             }
         );
 
-        return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('message', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+        if ($status == Password::PASSWORD_RESET) {
+            flash()->info(__($status));
+            return redirect()->route('login');
+        }
+
+        return back()->withErrors(['email' => [__($status)]]);
     }
 
     public function signIn(SignInFormRequest $request): RedirectResponse

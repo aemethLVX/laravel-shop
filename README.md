@@ -7,3 +7,4 @@
 ### Install
 
 - Run the command `php artisan shop:install`
+- Make .env and .env.testing from .env.example

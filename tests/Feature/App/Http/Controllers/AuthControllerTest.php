@@ -3,6 +3,7 @@
 namespace Tests\Feature\App\Http\Controllers;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\SignInFormRequest;
 use App\Http\Requests\SignUpFormRequest;
 use App\Listeners\SendEmailNewUserListener;
@@ -12,6 +13,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
@@ -105,6 +107,27 @@ class AuthControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $response->assertRedirect(route('home'));
+    }
+
+    public function test_request_password_success(): void
+    {
+        $email = 'test@mail.ru';
+
+        $this->assertGuest();
+
+        User::factory()->create([
+            'email' => $email,
+        ]);
+
+        $request = ForgotPasswordRequest::factory()->create([
+            'email' => $email,
+        ]);
+
+        $status = Password::sendResetLink(
+            $request
+        );
+
+        $this->assertEquals(Password::RESET_LINK_SENT, $status);
     }
 
     public function test_log_out_success(): void

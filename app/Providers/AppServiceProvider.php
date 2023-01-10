@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Services\Faker\FakerImageProvider;
 use Carbon\CarbonInterval;
 use Faker\{Factory, Generator};
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
+use Services\Faker\FakerImageProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

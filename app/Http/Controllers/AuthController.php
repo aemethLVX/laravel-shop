@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\{ForgotPasswordRequest, ResetPasswordRequest, SignInFormRequest, SignUpFormRequest};
-use App\Models\User;
+use Domain\Auth\Models\User;
 use Illuminate\Auth\Events\{PasswordReset, Registered};
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\{Factory, View};

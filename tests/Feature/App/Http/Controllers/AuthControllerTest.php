@@ -7,8 +7,9 @@ use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\SignInFormRequest;
 use App\Http\Requests\SignUpFormRequest;
 use App\Listeners\SendEmailNewUserListener;
-use App\Models\User;
 use App\Notifications\NewUserNotification;
+use Database\Factories\UserFactory;
+use Domain\Auth\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -48,7 +49,7 @@ class AuthControllerTest extends TestCase
     {
         $password = '12345678';
 
-        $user = User::factory()->create([
+        $user = UserFactory::new()->create([
             'email' => 'test@mail.ru',
             'password' => bcrypt($password),
         ]);
@@ -93,7 +94,7 @@ class AuthControllerTest extends TestCase
             'email' => $request['email']
         ]);
 
-        $user = User::where('email', $request['email'])->first();
+        $user = User::query()->where('email', $request['email'])->first();
 
         Event::assertDispatched(Registered::class);
         Event::assertListening(Registered::class, SendEmailNewUserListener::class);
@@ -115,7 +116,7 @@ class AuthControllerTest extends TestCase
 
         $this->assertGuest();
 
-        User::factory()->create([
+        UserFactory::new()->create([
             'email' => $email,
         ]);
 
@@ -132,7 +133,7 @@ class AuthControllerTest extends TestCase
 
     public function test_log_out_success(): void
     {
-        $user = User::factory()->create([
+        $user = UserFactory::new()->create([
             'email' => 'test@mail.ru',
         ]);
 

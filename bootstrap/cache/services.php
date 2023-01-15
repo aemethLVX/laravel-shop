@@ -37,11 +37,11 @@
     33 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
     34 => 'Worksome\\RequestFactories\\RequestFactoriesServiceProvider',
     35 => 'App\\Providers\\AppServiceProvider',
-    36 => 'App\\Providers\\AuthServiceProvider',
-    37 => 'App\\Providers\\EventServiceProvider',
-    38 => 'App\\Providers\\RouteServiceProvider',
-    39 => 'App\\Providers\\TelescopeServiceProvider',
-    40 => 'App\\Providers\\ViewServiceProvider',
+    36 => 'App\\Providers\\EventServiceProvider',
+    37 => 'App\\Providers\\RouteServiceProvider',
+    38 => 'App\\Providers\\TelescopeServiceProvider',
+    39 => 'App\\Providers\\ViewServiceProvider',
+    40 => 'App\\Providers\\DomainServiceProvider',
   ),
   'eager' => 
   array (
@@ -66,11 +66,11 @@
     18 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
     19 => 'Worksome\\RequestFactories\\RequestFactoriesServiceProvider',
     20 => 'App\\Providers\\AppServiceProvider',
-    21 => 'App\\Providers\\AuthServiceProvider',
-    22 => 'App\\Providers\\EventServiceProvider',
-    23 => 'App\\Providers\\RouteServiceProvider',
-    24 => 'App\\Providers\\TelescopeServiceProvider',
-    25 => 'App\\Providers\\ViewServiceProvider',
+    21 => 'App\\Providers\\EventServiceProvider',
+    22 => 'App\\Providers\\RouteServiceProvider',
+    23 => 'App\\Providers\\TelescopeServiceProvider',
+    24 => 'App\\Providers\\ViewServiceProvider',
+    25 => 'App\\Providers\\DomainServiceProvider',
   ),
   'deferred' => 
   array (

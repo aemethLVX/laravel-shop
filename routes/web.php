@@ -1,22 +1,28 @@
 <?php
 
+use App\Http\Controllers\Auth\SignInController;
+use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::controller(AuthController::class)->group(function () {
+Route::controller(SignInController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
-    Route::post('/login', 'signIn')
+    Route::post('/login', 'handle')
         ->middleware('throttle:auth')
         ->name('sign.in');
+});
 
-    Route::get('/sign_up', 'signUp')->name('sign.up');
-    Route::post('/sign_up', 'store')
+Route::controller(SignUpController::class)->group(function () {
+    Route::get('/sign_up', 'index')->name('sign.up');
+    Route::post('/sign_up', 'handle')
         ->middleware('throttle:auth')
         ->name('store');
+});
 
+Route::controller(AuthController::class)->group(function () {
     Route::get('/forgot_password', 'forgotPassword')
         ->middleware('guest')
         ->name('password.forgot');

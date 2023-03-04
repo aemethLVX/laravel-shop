@@ -8,7 +8,6 @@ use App\Http\Controllers\Auth\{ForgotPasswordController,
     SignInController,
     SignUpController,
     SocialAuthController};
-use App\Http\Controllers\AuthController;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Support\Facades\Route;
 
@@ -32,13 +31,6 @@ class AuthRegistrar implements RouteRegistrar
                     ->name('store');
             });
 
-            Route::controller(SocialAuthController::class)->group(function () {
-                Route::get('/auth/socialite/{driver}', 'redirect')
-                    ->name('socialite.github');
-                Route::get('/auth/socialite/{driver}/callback', 'callback')
-                    ->name('socialite.github.callback');
-            });
-
             Route::controller(ForgotPasswordController::class)->group(function () {
                 Route::get('/forgot_password', 'index')
                     ->middleware('guest')
@@ -55,6 +47,13 @@ class AuthRegistrar implements RouteRegistrar
                 Route::post('/reset-password', 'handle')
                     ->middleware('guest')
                     ->name('password.update');
+            });
+
+            Route::controller(SocialAuthController::class)->group(function () {
+                Route::get('/auth/socialite/{driver}', 'redirect')
+                    ->name('socialite.redirect');
+                Route::get('/auth/socialite/{driver}/callback', 'callback')
+                    ->name('socialite.callback');
             });
         });
     }

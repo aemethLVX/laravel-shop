@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\App\Http\Controllers;
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\SignInController;
+use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\AuthController;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\SignInFormRequest;
@@ -23,15 +26,15 @@ class AuthControllerTest extends TestCase
 
     public function test_index_page_success(): void
     {
-        $this->get(action([AuthController::class, 'index']))
+        $this->get(action([SignInController::class, 'index']))
             ->assertOk()
-            ->assertViewIs('auth.index')
+            ->assertViewIs('auth.login')
             ->assertSee('Вход в аккаунт');
     }
 
     public function test_sign_up_page_success(): void
     {
-        $this->get(action([AuthController::class, 'signUp']))
+        $this->get(action([SignUpController::class, 'index']))
             ->assertOk()
             ->assertViewIs('auth.sign_up')
             ->assertSee('Регистрация');
@@ -39,7 +42,7 @@ class AuthControllerTest extends TestCase
 
     public function test_forgot_password_page_success(): void
     {
-        $this->get(action([AuthController::class, 'forgotPassword']))
+        $this->get(action([ForgotPasswordController::class, 'index']))
             ->assertOk()
             ->assertViewIs('auth.forgot_password')
             ->assertSee('Забыли пароль');
@@ -60,7 +63,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $response = $this->post(
-            action([AuthController::class, 'signIn']),
+            action([SignInController::class, 'handle']),
             $request
         );
 
@@ -68,7 +71,7 @@ class AuthControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_store_success(): void
+    public function test_sign_up_store_success(): void
     {
         Notification::fake();
         Event::fake();
@@ -84,7 +87,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $response = $this->post(
-            action([AuthController::class, 'store']),
+            action([SignUpController::class, 'handle']),
             $request
         );
 
@@ -138,7 +141,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $this->actingAs($user)->delete(
-            action([AuthController::class, 'logOut'])
+            action([SignInController::class, 'logOut'])
         );
 
         $this->assertGuest();

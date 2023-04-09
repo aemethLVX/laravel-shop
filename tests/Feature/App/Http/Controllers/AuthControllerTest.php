@@ -5,7 +5,6 @@ namespace Tests\Feature\App\Http\Controllers;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\SignInController;
 use App\Http\Controllers\Auth\SignUpController;
-use App\Http\Controllers\AuthController;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\SignInFormRequest;
 use App\Http\Requests\SignUpFormRequest;

@@ -14,6 +14,8 @@ class CategoryFactory extends Factory
     {
         return [
             'title' => ucfirst($this->faker->words(2, true)),
+            'show_on_main_page' => $this->faker->boolean,
+            'sort' => $this->faker->numberBetween(1, 500),
         ];
     }
 }

@@ -15,6 +15,8 @@ class BrandFactory extends Factory
         return [
             'title' => $this->faker->company(),
             'picture' => $this->faker->loremFlickrImage('images/brands', 600, 600, 'brand_logo'),
+            'show_on_main_page' => $this->faker->boolean,
+            'sort' => $this->faker->numberBetween(1, 500),
         ];
     }
 }

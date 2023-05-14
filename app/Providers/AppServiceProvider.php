@@ -5,6 +5,7 @@ namespace App\Providers;
 use Carbon\CarbonInterval;
 use Faker\{Factory, Generator};
 use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Database\Eloquent\Factories\Factory as EloquentFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -34,6 +35,11 @@ class AppServiceProvider extends ServiceProvider
                 }
             );
         }
+
+        EloquentFactory::guessFactoryNamesUsing(function (string $modelName) {
+            return 'Database\\Factories\\' . class_basename($modelName) . 'Factory';
+        });
+
 
         $this->app->singleton(Generator::class, function () {
             $faker = Factory::create();
